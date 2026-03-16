@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { EnergyState, EnergyResult } from '../types';
 import { calculateEnergy } from '../utils/physics';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
@@ -10,11 +10,7 @@ const EnergyView: React.FC = () => {
     resonanceFrequency: 42.0
   });
   
-  const [result, setResult] = useState<EnergyResult>(calculateEnergy(state));
-
-  useEffect(() => {
-    setResult(calculateEnergy(state));
-  }, [state]);
+  const result = useMemo<EnergyResult>(() => calculateEnergy(state), [state]);
 
   const chartData = [
     { name: 'Input', val: 100 },
