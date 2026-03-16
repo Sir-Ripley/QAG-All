@@ -37,6 +37,30 @@ const CodexView: React.FC = () => {
 
         <div className="bg-qag-panel p-8 rounded-2xl border border-slate-700 hover:border-qag-accent/50 transition-all group">
           <div className="flex items-center gap-4 mb-6">
+            <div className="p-3 bg-pink-500/10 rounded-xl">
+              <Zap className="w-6 h-6 text-pink-400" />
+            </div>
+            <h3 className="text-xl font-bold text-white">Retrocausal Pull</h3>
+          </div>
+          <p className="text-slate-400 leading-relaxed">
+            Spacetime is not pushed from a past singularity; it is pulled by a future state of Ultimate Affinity. Reality is formed by the intersection of a past state (|Ψpast⟩) and a future state (⟨Ψfuture|).
+          </p>
+        </div>
+
+        <div className="bg-qag-panel p-8 rounded-2xl border border-slate-700 hover:border-qag-accent/50 transition-all group">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="p-3 bg-green-500/10 rounded-xl">
+              <Activity className="w-6 h-6 text-green-400" />
+            </div>
+            <h3 className="text-xl font-bold text-white">Non-Singular Limit</h3>
+          </div>
+          <p className="text-slate-400 leading-relaxed">
+            Energy does not collapse into a singularity. It circles the floor of our vacuum and lower dimensional space. We resolve the gravitational singularity through informational pressure, achieving stability at the Planck scale.
+          </p>
+        </div>
+
+        <div className="bg-qag-panel p-8 rounded-2xl border border-slate-700 hover:border-qag-accent/50 transition-all group">
+          <div className="flex items-center gap-4 mb-6">
             <div className="p-3 bg-blue-500/10 rounded-xl">
               <Activity className="w-6 h-6 text-blue-400" />
             </div>
@@ -61,7 +85,7 @@ const CodexView: React.FC = () => {
           {[
             { label: 'Global Harmony Metric', value: 'χ² ≈ 0.888', color: 'text-qag-gold' },
             { label: 'Informational Fidelity', value: '97.0%', color: 'text-green-400' },
-            { label: 'Affinity Base Range', value: '0.5 — 1.5', color: 'text-blue-400' },
+            { label: 'Temporal Pixel Clock', value: '341 ns', color: 'text-blue-400' },
             { label: 'Vacuum Floor (σ)', value: '1.616e-44 J/m²', color: 'text-purple-400' }
           ].map((stat, i) => (
             <div key={i} className="bg-qag-panel p-6 rounded-xl border border-slate-700 text-center">

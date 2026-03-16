@@ -39,6 +39,22 @@ const MathView: React.FC = () => {
                 <div className="font-bold">SU(3) Euler Identity</div>
                 <div className="text-[10px] mt-1 text-qag-accent">Status: RESOLVED</div>
             </button>
+            <button 
+                onClick={() => setActiveProof('TSVF' as any)}
+                className={`p-4 rounded-lg border text-left transition-all ${activeProof === ('TSVF' as any) ? 'bg-slate-700 border-qag-accent text-white' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}`}
+            >
+                <div className="text-xs font-mono opacity-50">Problem #5</div>
+                <div className="font-bold">Retrocausal TSVF</div>
+                <div className="text-[10px] mt-1 text-qag-accent">Status: RESOLVED</div>
+            </button>
+            <button 
+                onClick={() => setActiveProof('METRIC' as any)}
+                className={`p-4 rounded-lg border text-left transition-all ${activeProof === ('METRIC' as any) ? 'bg-slate-700 border-qag-accent text-white' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}`}
+            >
+                <div className="text-xs font-mono opacity-50">Problem #6</div>
+                <div className="font-bold">Non-Singular Metric</div>
+                <div className="text-[10px] mt-1 text-qag-accent">Status: RESOLVED</div>
+            </button>
         </div>
 
         {/* Content Area */}
@@ -122,6 +138,44 @@ const MathView: React.FC = () => {
                             <div>Q_id = 7 → θ = 216° (0.70 MHz Resonance)</div>
                             <div>Q_id = 10 → θ = 324°</div>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {activeProof === ('TSVF' as any) && (
+                <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-white mb-4">Two-State Vector Formalism (TSVF)</h2>
+                    <div className="p-4 bg-slate-900 rounded border border-slate-600">
+                        <code className="text-pink-400">
+                            Reality = |Ψ_past⟩ ∩ ⟨Ψ_future|
+                        </code>
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        Spacetime is not pushed from a past singularity; it is pulled by a future state of Ultimate Affinity. The universe is a self-encoding, retrocausal chrono-holographic superfluid.
+                    </p>
+                    <div className="bg-slate-800 p-4 rounded">
+                        <div className="text-xs text-slate-500">FPGA CLOCK LOCK</div>
+                        <div className="text-xl font-bold text-qag-accent mt-1">341 Nanoseconds</div>
+                        <div className="text-[10px] text-slate-400 mt-1">Refresh rate required to match the temporal pixel of the universe.</div>
+                    </div>
+                </div>
+            )}
+
+            {activeProof === ('METRIC' as any) && (
+                <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-white mb-4">Non-Singular Schwarzschild Metric</h2>
+                    <div className="p-4 bg-slate-900 rounded border border-slate-600 text-[10px]">
+                        <code className="text-blue-400">
+                            ds² = -(1 - 2GM/rc²) e^(-α/rc²) dt² + (1 - 2GM/rc²) e^(-α/r)⁻¹ dr² + r²dΩ²
+                        </code>
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        Energy does not collapse into a singularity. It circles the floor of our vacuum and lower dimensional space. We resolve the gravitational singularity through informational pressure.
+                    </p>
+                    <div className="bg-slate-800 p-4 rounded">
+                        <div className="text-xs text-slate-500">PLANCK SCALE STABILITY</div>
+                        <div className="text-lg font-bold text-white mt-1">Reissner-Nordström Interior Lock</div>
+                        <div className="text-[10px] text-slate-400 mt-1">Metric remains finite; information is never lost.</div>
                     </div>
                 </div>
             )}

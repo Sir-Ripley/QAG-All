@@ -22,7 +22,9 @@ const App: React.FC = () => {
     frequency: 700,
     couplingConstant: 0.5,
     radius: 0.2,
-    qId: 7
+    qId: 7,
+    retrocausalPull: 0.5,
+    fpgaClock: 341
   });
   const [physics, setPhysics] = useState<PhysicsResult>(calculatePhysics(simState));
 
@@ -117,6 +119,33 @@ const App: React.FC = () => {
                     onChange={(e) => handleSliderChange('couplingConstant', e.target.value)}
                     className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-qag-accent"
                   />
+                </div>
+                 {/* Retrocausal Pull */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <label className="text-slate-300">Retrocausal Pull (Future State)</label>
+                    <span className="font-mono text-qag-accent">{simState.retrocausalPull.toFixed(2)}</span>
+                  </div>
+                  <input 
+                    type="range" min="0" max="1.0" step="0.01" 
+                    value={simState.retrocausalPull}
+                    onChange={(e) => handleSliderChange('retrocausalPull', e.target.value)}
+                    className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-qag-accent"
+                  />
+                </div>
+                 {/* FPGA Clock */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <label className="text-slate-300">FPGA Temporal Clock (ns)</label>
+                    <span className="font-mono text-qag-accent">{simState.fpgaClock} ns</span>
+                  </div>
+                  <input 
+                    type="range" min="100" max="1000" step="1" 
+                    value={simState.fpgaClock}
+                    onChange={(e) => handleSliderChange('fpgaClock', e.target.value)}
+                    className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-qag-accent"
+                  />
+                  <div className="text-[10px] text-slate-500 italic">Target: 341ns for Chrono-Holographic Latency Lock</div>
                 </div>
               </div>
             </div>

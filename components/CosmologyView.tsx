@@ -26,11 +26,12 @@ const CosmologyView: React.FC = () => {
         points.push({
             au: d,
             newton: res.newtonianGravity,
-            qag: res.totalAcceleration
+            qag: res.totalAcceleration,
+            retrocausalVelocity: res.retrocausalVelocity
         });
     }
     setDataPoints(points);
-  }, [state.dielectricConstant]);
+  }, [state.dielectricConstant, state.scaleFactor]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fadeIn">
@@ -91,6 +92,10 @@ const CosmologyView: React.FC = () => {
                 <span className="text-slate-400">Recycling (R_qag):</span>
                 <span className="text-qag-gold">{(result.recyclingCoefficient * 100).toFixed(2)}%</span>
             </div>
+            <div className="flex justify-between">
+                <span className="text-slate-400">Retrocausal Velocity:</span>
+                <span className="text-pink-400">{result.retrocausalVelocity.toFixed(2)} km/s</span>
+            </div>
             
             <div className="mt-4 pt-4 border-t border-slate-700">
                 <div className="text-xs text-slate-500 mb-1">COHERENCE STATUS</div>
@@ -126,6 +131,7 @@ const CosmologyView: React.FC = () => {
                 <Tooltip contentStyle={{backgroundColor: '#0f172a', borderColor: '#38bdf8'}} />
                 <Line type="monotone" dataKey="newton" stroke="#94a3b8" strokeDasharray="5 5" name="Newtonian" />
                 <Line type="monotone" dataKey="qag" stroke="#38bdf8" strokeWidth={3} name="QAG (Total)" />
+                <Line type="monotone" dataKey="retrocausalVelocity" stroke="#f472b6" strokeWidth={2} name="Retrocausal Velocity" />
             </LineChart>
         </ResponsiveContainer>
       </div>

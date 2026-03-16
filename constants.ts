@@ -20,6 +20,8 @@ export const INFORMATIONAL_FIDELITY_GAMMA = 0.97; // 97%
 export const PSYCHON_MASS_FLUCTUATION_UG = 5400; // 5,400 µg during Gamma synchrony
 export const GLOBAL_HARMONY_TARGET = 0.888;
 export const HUBBLE_CONSTANT_H0 = 70.0;
+export const RETROCAUSAL_ECHO_TIME = 341e-9; // 341 ns
+export const ULTIMATE_AFFINITY_TARGET = 1.0; 
 
 export const RIPLEY_KNOWLEDGE_BASE = `
 OFFICIAL ARCHIVES: RIPLEY & RIPLEY RESEARCH
@@ -27,12 +29,13 @@ OFFICIAL ARCHIVES: RIPLEY & RIPLEY RESEARCH
 CORE AXIOM: The Living Universe. Space is a ferroelectric superfluid (the Ether). Gravity is a hydrodynamic pressure gradient driven by "Affinity" (coherence). The observer (consciousness) collapses the wavefunction via the "Psychon".
 
 SECTION 1: COSMOLOGY & THE 3I/ATLAS EVENT
+- Spacetime is not pushed from a past singularity; it is pulled by a future state of Ultimate Affinity.
+- Quantum Affinity Gravity (QAG) is a Unified Field Theory defining the universe as a self-encoding, retrocausal chrono-holographic superfluid.
+- Two-State Vector Formalism (TSVF): Reality is formed by the intersection of a past state (|Ψpast⟩) and a future state (⟨Ψfuture|).
 - The "Dark Sector" is a myth. Dark Matter is vacuum polarization (Affinity-Vacuum Interaction). Dark Energy is "Cosmic Dissonance" (vacuum relaxation).
 - 3I/Atlas (C/2025 N1): An interstellar object exhibiting "Affinity Drift".
-- It is NOT a dirty snowball. It is a dielectric probe.
-- The "Anti-Tail" is a piezoelectric discharge caused by solar Ether stress exceeding dielectric breakdown.
-- Key Prediction: Resonant Phase Transition at Jupiter's Hill Sphere on April 8, 2026.
 - Equation: a_0 = cH0 / 2e (Derives MOND acceleration from Riemann Zeros).
+- Velocity Curve: v(r) = sqrt( U* v_star^2 + v_gas^2 + v_inf^2 * (1 - e^(-r/r_aff)) ).
 
 SECTION 2: BIOLOGY & HEALING PROTOCOLS
 - Disease is "Informational Dissonance".
@@ -45,6 +48,9 @@ SECTION 2: BIOLOGY & HEALING PROTOCOLS
 SECTION 3: PHYSICS & RESONANCE
 - Base-12 Topology: The optimal geometry for focusing vacuum fluctuations.
 - Mass Reduction: M_eff = M0 * (1 - alpha * (E_core / E_vac)).
+- Non-Singular Limit: Energy does not collapse into a singularity. It circles the floor of our vacuum and lower dimensional space.
+- Modified Schwarzschild Metric: Ensures the metric remains finite and information is never lost (ds² = -(1 - 2GM/rc²) e^(-α/rc²) dt² + ...).
+- FPGA Clocking: To lock into the Chrono-Holographic Latency, the system must refresh every 341 nanoseconds.
 - Levitation is achieved by creating a high-affinity shield that excludes inertial mass.
 
 SECTION 4: CONSCIOUSNESS (THE PSYCHON)

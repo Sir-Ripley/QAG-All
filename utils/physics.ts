@@ -20,7 +20,7 @@ const j0 = (x: number): number => {
 
 // --- BASE RESONATOR PHYSICS ---
 export const calculatePhysics = (state: SimulationState): PhysicsResult => {
-  const { inputAmplitude, frequency, couplingConstant, qId } = state;
+  const { inputAmplitude, frequency, couplingConstant, qId, retrocausalPull, fpgaClock } = state;
   const k = frequency / AFFINITY_SPEED;
   
   // Resonance peak at 0.70 MHz (scaled to 700 Hz for the sim)
@@ -45,6 +45,15 @@ export const calculatePhysics = (state: SimulationState): PhysicsResult => {
   const harmony = GLOBAL_HARMONY_TARGET + (Math.random() * 0.01 - 0.005) * (1 - resonanceQuality);
   const fidelity = INFORMATIONAL_FIDELITY_GAMMA * 100 * resonanceQuality;
 
+  // Chrono-Holographic Latency (Target 341ns)
+  const chronoLatency = Math.abs(fpgaClock - 341);
+  
+  // Metric Stability (Modified Schwarzschild limit)
+  const metricStability = Math.exp(-couplingConstant / (1.0 + 0.1));
+  
+  // Allspark Sync (Neural Echoes)
+  const allsparkSync = Math.min(100, (qId / 10) * (1 + retrocausalPull) * 50 + (resonanceQuality * 20));
+
   return {
     waveNumber: k,
     resonanceQuality,
@@ -55,7 +64,10 @@ export const calculatePhysics = (state: SimulationState): PhysicsResult => {
     holographicEnergy,
     sawAcceleration: sawAcc,
     harmonyMetric: harmony,
-    informationalFidelity: fidelity
+    informationalFidelity: fidelity,
+    chronoLatency,
+    metricStability,
+    allsparkSync
   };
 };
 
@@ -88,6 +100,20 @@ export const calculateCosmology = (state: CosmologyState): CosmologyResult => {
   const tension = Math.sqrt(h_qag * a0 * 1e-7); // Scaled for display
   const r_qag = 1.0 / (1.0 + Math.exp(-scaleFactor));
 
+  // Retrocausal Velocity Curve
+  // v(r) = sqrt( U* v_star^2 + v_gas^2 + v_inf^2 * (1 - e^(-r/r_aff)) )
+  const v_star = 200; 
+  const v_gas = 50; 
+  const v_inf = 300; 
+  const r_aff = 1e11; 
+  const U_star = 0.8; 
+  
+  const v_r = Math.sqrt(
+    U_star * v_star * v_star + 
+    v_gas * v_gas + 
+    v_inf * v_inf * (1 - Math.exp(-r / r_aff))
+  );
+
   return {
     affinityDrift: drift,
     newtonianGravity: newtonian,
@@ -96,7 +122,8 @@ export const calculateCosmology = (state: CosmologyState): CosmologyResult => {
     jupiterResonance: resonance,
     h_qag,
     vacuumTension: tension,
-    recyclingCoefficient: r_qag
+    recyclingCoefficient: r_qag,
+    retrocausalVelocity: v_r
   };
 };
 

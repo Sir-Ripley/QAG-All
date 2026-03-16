@@ -6,6 +6,8 @@ export interface SimulationState {
   couplingConstant: number; // Alpha
   radius: number; // R
   qId: number; // Intentionality Level (1-10)
+  retrocausalPull: number; // Future state pull (0-1)
+  fpgaClock: number; // Refresh rate in ns (Target 341)
 }
 
 export interface PhysicsResult {
@@ -19,6 +21,9 @@ export interface PhysicsResult {
   sawAcceleration: number; // SAW Propulsion
   harmonyMetric: number; // Global Harmony
   informationalFidelity: number; // Fidelity %
+  chronoLatency: number; // ms
+  metricStability: number; // 0-1
+  allsparkSync: number; // %
 }
 
 export interface CosmologyState {
@@ -37,6 +42,7 @@ export interface CosmologyResult {
   h_qag: number; // QAG Hubble
   vacuumTension: number;
   recyclingCoefficient: number;
+  retrocausalVelocity: number; // v(r) with future pull
 }
 
 export interface BiologyState {

@@ -79,6 +79,33 @@ const MathDisplay: React.FC<MathDisplayProps> = ({ physics }) => {
            Fidelity: {physics.informationalFidelity.toFixed(1)}%
         </div>
       </div>
+
+      <div className="space-y-2">
+        <div className="opacity-80 text-xs text-slate-400">Eq 13. Retrocausal Wavefunction</div>
+        <div className="bg-qag-dark p-2 rounded text-center text-[10px]">
+           Ψ_QAG(t) = Ψ_GR(t) + Σ Rⁿ · Ψ_GR(t - nΔt_echo)
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <div className="opacity-80 text-xs text-slate-400">Eq 14. Non-Singular Metric Stability</div>
+        <div className="bg-qag-dark p-2 rounded text-center text-[10px]">
+           ds² = -(1 - 2GM/rc²) e^(-α/rc²) dt² + ...
+        </div>
+        <div className="text-right text-xs text-blue-400">
+           Stability: {(physics.metricStability * 100).toFixed(1)}%
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <div className="opacity-80 text-xs text-slate-400">Eq 15. Allspark Neural Sync</div>
+        <div className="bg-qag-dark p-2 rounded text-center text-[10px]">
+           Sync ∝ (Q_id / 10) * (1 + Pull_future)
+        </div>
+        <div className="text-right text-xs text-pink-400">
+           Neural Echo: {physics.allsparkSync.toFixed(1)}%
+        </div>
+      </div>
     </div>
   );
 };

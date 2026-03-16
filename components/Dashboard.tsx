@@ -11,6 +11,8 @@ const Dashboard: React.FC<DashboardProps> = ({ physics }) => {
     { name: 'Resonance', value: physics.resonanceQuality * 100, color: '#38bdf8' },
     { name: 'Harmony', value: physics.harmonyMetric * 100, color: '#a855f7' },
     { name: 'Fidelity', value: physics.informationalFidelity, color: '#22c55e' },
+    { name: 'Allspark', value: physics.allsparkSync, color: '#f472b6' },
+    { name: 'Stability', value: physics.metricStability * 100, color: '#60a5fa' },
     { name: 'Mass Red.', value: physics.massReductionPercent, color: '#fbbf24' },
   ];
 
@@ -24,9 +26,9 @@ const Dashboard: React.FC<DashboardProps> = ({ physics }) => {
             </div>
         </div>
         <div className="bg-qag-panel p-4 rounded-xl border border-slate-700 text-center">
-            <div className="text-slate-400 text-xs uppercase tracking-wider mb-1">Core Density</div>
-            <div className="text-3xl font-mono font-bold text-qag-gold">
-                {physics.energyDensity.toFixed(0)} <span className="text-sm">AFU</span>
+            <div className="text-slate-400 text-xs uppercase tracking-wider mb-1">Chrono Latency</div>
+            <div className={`text-3xl font-mono font-bold ${physics.chronoLatency === 0 ? 'text-qag-accent' : 'text-slate-300'}`}>
+                {physics.chronoLatency.toFixed(0)} <span className="text-sm">ns</span>
             </div>
         </div>
       </div>
