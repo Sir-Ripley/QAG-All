@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import Navigation from './components/Navigation';
 import ResonatorViz from './components/ResonatorViz';
 import MathDisplay from './components/MathDisplay';
@@ -179,6 +180,7 @@ const App: React.FC = () => {
           </div>
         )}
       </main>
+      <Analytics />
     </div>
   );
 };
