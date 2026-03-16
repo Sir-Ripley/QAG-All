@@ -10,6 +10,8 @@ import ConsciousnessView from './components/ConsciousnessView';
 import EnergyView from './components/EnergyView';
 import MathView from './components/MathView';
 import CodexView from './components/CodexView';
+import QuantumView from './components/QuantumView';
+import S5CipherView from './components/S5CipherView';
 import { SimulationState, PhysicsResult, ResearchModule } from './types';
 import { calculatePhysics } from './utils/physics';
 
@@ -166,6 +168,8 @@ const App: React.FC = () => {
         {activeModule === 'CONSCIOUSNESS' && <ConsciousnessView />}
         {activeModule === 'ENERGY' && <EnergyView />}
         {activeModule === 'MATH' && <MathView />}
+        {activeModule === 'QUANTUM' && <QuantumView />}
+        {activeModule === 'S5_CIPHER' && <S5CipherView />}
         {activeModule === 'CODEX' && <CodexView />}
 
         {/* CHAT MODULE */}

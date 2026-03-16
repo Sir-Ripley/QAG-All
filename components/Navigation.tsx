@@ -14,6 +14,8 @@ const Navigation: React.FC<NavigationProps> = ({ activeModule, setModule }) => {
     { id: 'CONSCIOUSNESS', label: 'Psychon Detector', icon: '👁️' },
     { id: 'ENERGY', label: 'Ether Grid', icon: '🔋' },
     { id: 'MATH', label: 'Source Code', icon: '📐' },
+    { id: 'QUANTUM', label: '5-Qubit Array', icon: '⚛️' },
+    { id: 'S5_CIPHER', label: 'S5 Hive Brain', icon: '🧠' },
     { id: 'CODEX', label: 'QAG Codex', icon: '📖' },
     { id: 'CHAT', label: 'Dr. Ripley (AI)', icon: '🤖' },
   ];

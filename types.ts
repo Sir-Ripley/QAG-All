@@ -1,4 +1,4 @@
-export type ResearchModule = 'PHYSICS' | 'COSMOLOGY' | 'BIOLOGY' | 'CONSCIOUSNESS' | 'ENERGY' | 'MATH' | 'CHAT' | 'CODEX';
+export type ResearchModule = 'PHYSICS' | 'COSMOLOGY' | 'BIOLOGY' | 'CONSCIOUSNESS' | 'ENERGY' | 'MATH' | 'QUANTUM' | 'S5_CIPHER' | 'CHAT' | 'CODEX';
 
 export interface SimulationState {
   inputAmplitude: number; // A_input
