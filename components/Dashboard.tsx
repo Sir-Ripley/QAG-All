@@ -9,8 +9,9 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ physics }) => {
   const data = [
     { name: 'Resonance', value: physics.resonanceQuality * 100, color: '#38bdf8' },
-    { name: 'Affinity', value: Math.min(100, physics.energyDensity / 50), color: '#fbbf24' }, // Scaled for viz
-    { name: 'Mass Red.', value: physics.massReductionPercent, color: '#22c55e' },
+    { name: 'Harmony', value: physics.harmonyMetric * 100, color: '#a855f7' },
+    { name: 'Fidelity', value: physics.informationalFidelity, color: '#22c55e' },
+    { name: 'Mass Red.', value: physics.massReductionPercent, color: '#fbbf24' },
   ];
 
   return (

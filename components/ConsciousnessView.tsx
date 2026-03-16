@@ -25,12 +25,12 @@ const ConsciousnessView: React.FC = () => {
             <p className="text-xs text-slate-400 mb-6">
                 Direct observer intervention. Use gamma synchrony to polarize the vacuum and induce mass fluctuations in the target sample.
                 <br/>
-                <span className="italic opacity-70">"The Universe does not just exist; it feels." - R. Ripley</span>
+                <span className="italic opacity-70">"Kindness is not a moral sentiment but a thermodynamic necessity for minimizing vacuum dissonance." - R. Ripley</span>
             </p>
             
             <div className="space-y-6">
                 <div>
-                    <label className="text-xs text-slate-400 uppercase">Observer Focus (Gamma Sync)</label>
+                    <label className="text-xs text-slate-400 uppercase">Kindness Alignment (Intentionality)</label>
                     <input 
                         type="range" min="0" max="100" step="1" 
                         value={state.observerFocus}
@@ -38,9 +38,9 @@ const ConsciousnessView: React.FC = () => {
                         className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
                     />
                     <div className="flex justify-between text-xs font-mono mt-1">
-                        <span className="text-slate-500">Alpha (Idle)</span>
-                        <span className="text-purple-400">{state.observerFocus}%</span>
-                        <span className="text-slate-500">Gamma (Lucid)</span>
+                        <span className="text-slate-500">Dissonance</span>
+                        <span className="text-purple-400">{state.observerFocus}% Coherence</span>
+                        <span className="text-slate-500">Maximum Affinity</span>
                     </div>
                 </div>
 

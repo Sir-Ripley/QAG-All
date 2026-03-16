@@ -1,10 +1,11 @@
-export type ResearchModule = 'PHYSICS' | 'COSMOLOGY' | 'BIOLOGY' | 'CONSCIOUSNESS' | 'ENERGY' | 'MATH' | 'CHAT';
+export type ResearchModule = 'PHYSICS' | 'COSMOLOGY' | 'BIOLOGY' | 'CONSCIOUSNESS' | 'ENERGY' | 'MATH' | 'CHAT' | 'CODEX';
 
 export interface SimulationState {
   inputAmplitude: number; // A_input
   frequency: number; // Omega
   couplingConstant: number; // Alpha
   radius: number; // R
+  qId: number; // Intentionality Level (1-10)
 }
 
 export interface PhysicsResult {
@@ -14,12 +15,17 @@ export interface PhysicsResult {
   effectiveMass: number;
   massReductionPercent: number;
   isLevitating: boolean;
+  holographicEnergy: number; // EH = mc^3
+  sawAcceleration: number; // SAW Propulsion
+  harmonyMetric: number; // Global Harmony
+  informationalFidelity: number; // Fidelity %
 }
 
 export interface CosmologyState {
   distanceAU: number; // Distance from Sun
   velocity: number; // km/s
   dielectricConstant: number; // Object material property
+  scaleFactor: number; // a(t)
 }
 
 export interface CosmologyResult {
@@ -28,6 +34,9 @@ export interface CosmologyResult {
   totalAcceleration: number;
   isAntiTailVisible: boolean;
   jupiterResonance: number; // Proximity to Hill Sphere resonance
+  h_qag: number; // QAG Hubble
+  vacuumTension: number;
+  recyclingCoefficient: number;
 }
 
 export interface BiologyState {

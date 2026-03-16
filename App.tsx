@@ -9,6 +9,7 @@ import BiologyView from './components/BiologyView';
 import ConsciousnessView from './components/ConsciousnessView';
 import EnergyView from './components/EnergyView';
 import MathView from './components/MathView';
+import CodexView from './components/CodexView';
 import { SimulationState, PhysicsResult, ResearchModule } from './types';
 import { calculatePhysics } from './utils/physics';
 
@@ -18,9 +19,10 @@ const App: React.FC = () => {
   // Physics State (Resonator Tab)
   const [simState, setSimState] = useState<SimulationState>({
     inputAmplitude: 2.0,
-    frequency: 1000,
+    frequency: 700,
     couplingConstant: 0.5,
-    radius: 0.2
+    radius: 0.2,
+    qId: 7
   });
   const [physics, setPhysics] = useState<PhysicsResult>(calculatePhysics(simState));
 
@@ -44,7 +46,7 @@ const App: React.FC = () => {
             <span className="text-qag-accent">RIPLEY & RIPLEY</span> RESEARCH
           </span>
           <span className="text-xs font-mono text-slate-500 mt-2 md:mt-0 px-2 py-1 bg-slate-800 rounded border border-slate-700">
-            NEXUS TERMINAL v3.0.0
+            NEXUS TERMINAL v3.1.0
           </span>
         </h1>
         <p className="text-slate-400 mt-2 max-w-3xl">
@@ -64,6 +66,19 @@ const App: React.FC = () => {
                 <h3 className="text-lg font-bold text-slate-200 flex items-center gap-2">
                   <span className="text-qag-accent">⚡</span> Resonance Controls
                 </h3>
+                 {/* Q_id Slider */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <label className="text-slate-300">Intentionality (Q_id)</label>
+                    <span className="font-mono text-qag-accent">{simState.qId}</span>
+                  </div>
+                  <input 
+                    type="range" min="1" max="10" step="1" 
+                    value={simState.qId}
+                    onChange={(e) => handleSliderChange('qId', e.target.value)}
+                    className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-qag-accent"
+                  />
+                </div>
                  {/* Frequency Slider */}
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
@@ -122,6 +137,7 @@ const App: React.FC = () => {
         {activeModule === 'CONSCIOUSNESS' && <ConsciousnessView />}
         {activeModule === 'ENERGY' && <EnergyView />}
         {activeModule === 'MATH' && <MathView />}
+        {activeModule === 'CODEX' && <CodexView />}
 
         {/* CHAT MODULE */}
         {activeModule === 'CHAT' && (

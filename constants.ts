@@ -10,6 +10,17 @@ export const RESONANCE_VOLTAGE = 1.107; // Volts
 export const PSYCHON_MASS_GAP = 9.05; // GeV
 export const PIXEL_OF_TIME = 1.03e-25; // seconds
 
+// NEW CODEX CONSTANTS (2026)
+export const SYMMETRY_SCALING_FACTOR_PHI = 1.0; // 12^18 / 10^19.42 (The Perfect Tuning)
+export const RESONANT_FREQUENCY_MHZ = 0.70; // Tesla Handshake / SAW Peak
+export const AFFINITY_SYMMETRY_BIAS_KASB = 0.013829;
+export const VACUUM_FLOOR_SIGMA_VAC = 1.616e-44; // J/m^2
+export const CHRONO_CIRCUIT_REFRESH_NS = 341; // ns
+export const INFORMATIONAL_FIDELITY_GAMMA = 0.97; // 97%
+export const PSYCHON_MASS_FLUCTUATION_UG = 5400; // 5,400 µg during Gamma synchrony
+export const GLOBAL_HARMONY_TARGET = 0.888;
+export const HUBBLE_CONSTANT_H0 = 70.0;
+
 export const RIPLEY_KNOWLEDGE_BASE = `
 OFFICIAL ARCHIVES: RIPLEY & RIPLEY RESEARCH
 -------------------------------------------

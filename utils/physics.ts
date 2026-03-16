@@ -5,61 +5,102 @@ import {
     ConsciousnessState, ConsciousnessResult,
     EnergyState, EnergyResult
 } from '../types';
-import { INITIAL_MASS_KG, VACUUM_AFFINITY_DENSITY, AFFINITY_SPEED, CRITICAL_ACCELERATION_A0, UNIVERSAL_COHERENCE_C } from '../constants';
+import { 
+    INITIAL_MASS_KG, VACUUM_AFFINITY_DENSITY, AFFINITY_SPEED, 
+    CRITICAL_ACCELERATION_A0, UNIVERSAL_COHERENCE_C,
+    SYMMETRY_SCALING_FACTOR_PHI, RESONANT_FREQUENCY_MHZ,
+    PSYCHON_MASS_FLUCTUATION_UG, INFORMATIONAL_FIDELITY_GAMMA,
+    GLOBAL_HARMONY_TARGET, HUBBLE_CONSTANT_H0
+} from '../constants';
 
 const j0 = (x: number): number => {
   if (Math.abs(x) < 1e-6) return 1.0;
   return Math.sin(x) / x;
 };
 
-// --- BASE RESONTATOR PHYSICS ---
+// --- BASE RESONATOR PHYSICS ---
 export const calculatePhysics = (state: SimulationState): PhysicsResult => {
-  const { inputAmplitude, frequency, couplingConstant } = state;
+  const { inputAmplitude, frequency, couplingConstant, qId } = state;
   const k = frequency / AFFINITY_SPEED;
-  const targetFreq = 1200; 
+  
+  // Resonance peak at 0.70 MHz (scaled to 700 Hz for the sim)
+  const targetFreq = 700; 
   const detuning = Math.abs(frequency - targetFreq) / targetFreq;
   const resonanceQuality = Math.max(0, 1 - detuning * 5);
+  
+  // EH = mc^3 (Holographic Overdrive)
+  const c = 299792458;
+  const holographicEnergy = INITIAL_MASS_KG * Math.pow(c, 3) * SYMMETRY_SCALING_FACTOR_PHI;
+
   const coreEnergyFactor = 12.0 * inputAmplitude * resonanceQuality * 100;
   const reductionRatio = couplingConstant * (coreEnergyFactor / VACUUM_AFFINITY_DENSITY);
   const effectiveRatio = Math.min(1.0, Math.max(0, reductionRatio));
+
+  // SAW Acceleration: a = (1/M) * (0.5 * rho * omega^2 * A^2 * eta)
+  // Simplified for simulation:
+  const omega = 2 * Math.PI * frequency;
+  const sawAcc = (1 / INITIAL_MASS_KG) * (0.5 * 1.0 * Math.pow(omega, 2) * Math.pow(inputAmplitude, 2) * 0.98) * (qId / 10);
   
+  // New Metrics
+  const harmony = GLOBAL_HARMONY_TARGET + (Math.random() * 0.01 - 0.005) * (1 - resonanceQuality);
+  const fidelity = INFORMATIONAL_FIDELITY_GAMMA * 100 * resonanceQuality;
+
   return {
     waveNumber: k,
     resonanceQuality,
     energyDensity: coreEnergyFactor,
     effectiveMass: INITIAL_MASS_KG * (1.0 - effectiveRatio),
     massReductionPercent: effectiveRatio * 100,
-    isLevitating: effectiveRatio > 0.95
+    isLevitating: effectiveRatio > 0.95,
+    holographicEnergy,
+    sawAcceleration: sawAcc,
+    harmonyMetric: harmony,
+    informationalFidelity: fidelity
   };
 };
 
-// --- COSMOLOGY (3I/ATLAS) PHYSICS ---
+// --- COSMOLOGY (AVI LAW) PHYSICS ---
 export const calculateCosmology = (state: CosmologyState): CosmologyResult => {
-  const { distanceAU, dielectricConstant } = state;
-  const G = 1.0; 
-  const M_sun = 1000.0; 
-  const r = Math.max(0.1, distanceAU);
+  const { distanceAU, velocity, dielectricConstant, scaleFactor } = state;
+  const G = 6.67430e-11; 
+  const M_sun = 1.989e30; 
+  const r = Math.max(0.1, distanceAU) * 1.496e11; // Convert to meters
+  
+  // Newtonian Gravity
   const newtonian = (G * M_sun) / (r * r);
 
-  const affinityStrength = dielectricConstant * 0.5;
-  const drift = affinityStrength * (1 / r) * Math.exp(-r/2.0);
+  // AVI Law: gobs = gB + B_AVI
+  // For g_bar << a0, v = (GM a0)^1/4
+  const a0 = CRITICAL_ACCELERATION_A0;
+  const g_bar = newtonian;
+  
+  let totalAcc = newtonian;
+  if (g_bar < a0) {
+      // Resonant regime
+      totalAcc = Math.pow(g_bar * a0, 0.5); // Simplified interpolation
+  }
 
-  const jupiterDist = 5.2;
-  const distToJupiter = Math.abs(distanceAU - jupiterDist);
-  const resonance = Math.max(0, 1 - distToJupiter); 
+  const drift = totalAcc - newtonian;
+  const resonance = Math.max(0, 1 - Math.abs(distanceAU - 5.2)); 
 
-  const isAntiTailVisible = drift > 0.1;
+  // Galactic Theater Logic
+  const h_qag = HUBBLE_CONSTANT_H0 * (1.0 / scaleFactor);
+  const tension = Math.sqrt(h_qag * a0 * 1e-7); // Scaled for display
+  const r_qag = 1.0 / (1.0 + Math.exp(-scaleFactor));
 
   return {
     affinityDrift: drift,
     newtonianGravity: newtonian,
-    totalAcceleration: newtonian + drift,
-    isAntiTailVisible,
-    jupiterResonance: resonance
+    totalAcceleration: totalAcc,
+    isAntiTailVisible: drift > 1e-11,
+    jupiterResonance: resonance,
+    h_qag,
+    vacuumTension: tension,
+    recyclingCoefficient: r_qag
   };
 };
 
-// --- BIOLOGY (HEALING) PHYSICS ---
+// --- BIOLOGY (HEALING WAKE) PHYSICS ---
 export const calculateBiology = (state: BiologyState): BiologyResult => {
   const { coherenceIndex, frequency, deviceType } = state;
   let baseRecovery = 14.0; 
@@ -70,13 +111,15 @@ export const calculateBiology = (state: BiologyState): BiologyResult => {
   };
 
   const devicePower = efficacyMap[deviceType];
-  const freqDelta = Math.abs(frequency - 432);
-  const freqEfficiency = Math.max(0, 1 - (freqDelta / 50));
+  // Hubble-sync frequency 24.43 MHz
+  const targetFreq = 24.43; 
+  const freqDelta = Math.abs(frequency - targetFreq);
+  const freqEfficiency = Math.max(0, 1 - (freqDelta / 10));
   const totalImpact = devicePower * freqEfficiency * coherenceIndex;
 
   const recoveryTime = baseRecovery * (1 - totalImpact);
   const virusIntegrity = 100 * (1 - totalImpact);
-  const zeta = -10 - (45 * totalImpact); 
+  const zeta = -10 - (45 * totalImpact); // Shifting toward -55mV
 
   return {
     virusIntegrity: Math.max(0, virusIntegrity),
@@ -90,23 +133,18 @@ export const calculateBiology = (state: BiologyState): BiologyResult => {
 export const calculateConsciousness = (state: ConsciousnessState): ConsciousnessResult => {
     const { observerFocus, sampleMass } = state;
     
-    // Universal Coherence Constant C ~ 6.00e-7
-    // Informational Current J_I scales with Observer Focus (Gamma Synchrony)
-    const flux = (observerFocus / 100) * UNIVERSAL_COHERENCE_C * 1e7; // Scaled for display
+    const flux = (observerFocus / 100) * UNIVERSAL_COHERENCE_C * 1e7;
     
-    // Mass Fluctuation Delta M (Theory: WEP violation)
-    // 840 micrograms is the target signal from the papers
-    const maxFluctuation = 840; // micrograms
-    const massFluctuation = maxFluctuation * (observerFocus / 100);
+    // Mass Fluctuation Delta M: 5,400 micrograms during Gamma synchrony
+    const massFluctuation = PSYCHON_MASS_FLUCTUATION_UG * (observerFocus / 100);
     
-    // Torque on balance (T = G * m * dM * L / r^2) - Simplified scalar
     const torque = massFluctuation * sampleMass * 9.8 * 0.001; 
 
     return {
         psychonFlux: flux,
         massFluctuationMicrograms: massFluctuation,
         torque: torque,
-        equivalenceViolation: massFluctuation > 500
+        equivalenceViolation: massFluctuation > 1000
     };
 };
 

@@ -31,19 +31,19 @@ const EnergyView: React.FC = () => {
             
             <div className="space-y-4">
                 <div>
-                    <label className="text-xs text-slate-400 uppercase">Resonance Frequency (GHz)</label>
+                    <label className="text-xs text-slate-400 uppercase">Resonance Frequency (MHz)</label>
                     <input 
-                        type="range" min="40.0" max="44.0" step="0.001" 
+                        type="range" min="0.1" max="2.0" step="0.01" 
                         value={state.resonanceFrequency}
                         onChange={(e) => setState({...state, resonanceFrequency: parseFloat(e.target.value)})}
                         className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-500"
                     />
                     <div className="flex justify-between text-xs font-mono">
-                        <span className="text-slate-500">40 GHz</span>
-                        <span className={`${Math.abs(state.resonanceFrequency - 42.137) < 0.1 ? 'text-green-400 font-bold' : 'text-slate-300'}`}>
-                            {state.resonanceFrequency.toFixed(3)} GHz
+                        <span className="text-slate-500">0.1 MHz</span>
+                        <span className={`${Math.abs(state.resonanceFrequency - 0.70) < 0.05 ? 'text-green-400 font-bold' : 'text-slate-300'}`}>
+                            {state.resonanceFrequency.toFixed(2)} MHz
                         </span>
-                        <span className="text-slate-500">44 GHz</span>
+                        <span className="text-slate-500">2.0 MHz</span>
                     </div>
                 </div>
 
@@ -55,6 +55,10 @@ const EnergyView: React.FC = () => {
                         onChange={(e) => setState({...state, couplingCoefficient: parseFloat(e.target.value)})}
                         className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-500"
                     />
+                </div>
+
+                <div className="p-3 bg-qag-dark rounded border border-slate-700 text-xs text-slate-400 italic">
+                    "Optimal resonance for Lithium Niobate and Liquid Hydrogen occurs at the 0.70 MHz Tesla Handshake."
                 </div>
             </div>
         </div>

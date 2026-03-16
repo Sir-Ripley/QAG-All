@@ -57,6 +57,7 @@ const ResonatorViz: React.FC<ResonatorVizProps> = ({ physics, inputAmplitude }) 
       // Draw 12 Channels
       for (let i = 0; i < 12; i++) {
         const angle = (i * Math.PI * 2) / 12;
+        ctx.save();
         ctx.rotate(angle);
         
         // Channel line
@@ -68,16 +69,12 @@ const ResonatorViz: React.FC<ResonatorVizProps> = ({ physics, inputAmplitude }) 
         ctx.stroke();
 
         // Wave packets traveling inward
-        // Only show if there is input
         if (inputAmplitude > 0) {
             const waveCount = 3;
             for(let w=0; w<waveCount; w++) {
                 const speed = 1 + physics.resonanceQuality * 2;
-                // Waves move from radius to 0
                 const wavePos = (time * speed + w * (radius/waveCount)) % radius;
-                const currentR = radius - wavePos; // Moving inward
-                
-                // Opacity increases near center (Focusing effect)
+                const currentR = radius - wavePos; 
                 const opacity = (1 - (currentR/radius)) * inputAmplitude * 0.1;
                 
                 ctx.beginPath();
@@ -86,8 +83,25 @@ const ResonatorViz: React.FC<ResonatorVizProps> = ({ physics, inputAmplitude }) 
                 ctx.fill();
             }
         }
+        ctx.restore();
+      }
 
-        ctx.rotate(-angle);
+      // NEW: 8 Tensor Nodes (The 8 Fundamental Nodes from the Python script)
+      for (let i = 0; i < 8; i++) {
+        const angle = (i * Math.PI * 2) / 8 + (time * 0.1); // Rotating nodes
+        const nodeX = Math.cos(angle) * radius;
+        const nodeY = Math.sin(angle) * radius;
+        
+        ctx.beginPath();
+        ctx.arc(nodeX, nodeY, 6, 0, Math.PI * 2);
+        ctx.fillStyle = '#38bdf8';
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#38bdf8';
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.shadowBlur = 0;
       }
 
       // Draw The Core (Singularity)
@@ -101,6 +115,15 @@ const ResonatorViz: React.FC<ResonatorVizProps> = ({ physics, inputAmplitude }) 
       ctx.shadowColor = '#fbbf24';
       ctx.fill();
       ctx.shadowBlur = 0;
+
+      // Toroidal Ripples (Visualizing the 7th harmonic)
+      if (physics.resonanceQuality > 0.5) {
+          ctx.beginPath();
+          ctx.ellipse(0, 0, radius * 1.2, radius * 0.4, time * 0.2, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(239, 68, 68, ${0.1 * physics.resonanceQuality})`;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+      }
 
       // Label
       if (physics.isLevitating) {

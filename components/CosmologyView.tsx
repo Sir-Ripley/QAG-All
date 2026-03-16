@@ -7,7 +7,8 @@ const CosmologyView: React.FC = () => {
   const [state, setState] = useState<CosmologyState>({
     distanceAU: 2.5,
     velocity: 30,
-    dielectricConstant: 0.8
+    dielectricConstant: 0.8,
+    scaleFactor: 1.0
   });
   
   const [result, setResult] = useState<CosmologyResult>(calculateCosmology(state));
@@ -36,57 +37,70 @@ const CosmologyView: React.FC = () => {
       <div className="lg:col-span-4 space-y-6">
         <div className="bg-qag-panel p-6 rounded-xl border border-slate-700">
             <h3 className="text-qag-accent font-bold mb-4 flex items-center gap-2">
-                ☄️ 3I/Atlas Parametrics
+                🌌 AVI Law: Eradicating Dark Matter
             </h3>
             
             <div className="space-y-4">
                 <div>
-                    <label className="text-xs text-slate-400 uppercase">Solar Distance (AU)</label>
+                    <label className="text-xs text-slate-400 uppercase">Galactic Distance (kpc)</label>
                     <input 
-                        type="range" min="0.1" max="6.0" step="0.1" 
+                        type="range" min="0.1" max="50.0" step="0.5" 
                         value={state.distanceAU}
                         onChange={(e) => setState({...state, distanceAU: parseFloat(e.target.value)})}
                         className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-qag-accent"
                     />
                     <div className="flex justify-between text-xs font-mono">
-                        <span>Sun (0 AU)</span>
-                        <span>{state.distanceAU} AU</span>
-                        <span>Jupiter (5.2 AU)</span>
+                        <span>Core</span>
+                        <span>{state.distanceAU} kpc</span>
+                        <span>Halo</span>
                     </div>
                 </div>
 
                 <div>
-                    <label className="text-xs text-slate-400 uppercase">Dielectric Constant (Susceptibility)</label>
+                    <label className="text-xs text-slate-400 uppercase">Cosmic Scale Factor (a)</label>
                     <input 
-                        type="range" min="0.1" max="2.0" step="0.1" 
-                        value={state.dielectricConstant}
-                        onChange={(e) => setState({...state, dielectricConstant: parseFloat(e.target.value)})}
+                        type="range" min="0.1" max="5.0" step="0.1" 
+                        value={state.scaleFactor}
+                        onChange={(e) => setState({...state, scaleFactor: parseFloat(e.target.value)})}
                         className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-qag-accent"
                     />
+                    <div className="flex justify-between text-xs font-mono">
+                        <span>Singularity</span>
+                        <span>{state.scaleFactor.toFixed(1)}</span>
+                        <span>Expansion</span>
+                    </div>
+                </div>
+
+                <div className="p-3 bg-qag-dark rounded border border-slate-700 text-xs text-slate-400 italic">
+                    "Massive structures bind together naturally because they are surfing the resonant coherence wave of the vacuum floor itself."
                 </div>
             </div>
         </div>
 
         <div className="bg-qag-panel p-6 rounded-xl border border-slate-700 font-mono text-sm space-y-2">
+            <h4 className="text-xs text-slate-500 uppercase border-b border-slate-700 pb-2 mb-2">Galactic Theater Diagnostics</h4>
             <div className="flex justify-between">
-                <span className="text-slate-400">Affinity Drift (a_ng):</span>
-                <span className="text-qag-gold">{(result.affinityDrift * 1e5).toFixed(2)}e-5</span>
+                <span className="text-slate-400">QAG Hubble (H_qag):</span>
+                <span className="text-white">{result.h_qag.toFixed(2)} km/s/Mpc</span>
             </div>
             <div className="flex justify-between">
-                <span className="text-slate-400">Hill Sphere Resonance:</span>
-                <span className={`${result.jupiterResonance > 0.8 ? 'text-qag-danger animate-pulse' : 'text-slate-200'}`}>
-                    {(result.jupiterResonance * 100).toFixed(1)}%
-                </span>
+                <span className="text-slate-400">Vacuum Tension:</span>
+                <span className="text-blue-400">{result.vacuumTension.toExponential(2)}</span>
             </div>
+            <div className="flex justify-between">
+                <span className="text-slate-400">Recycling (R_qag):</span>
+                <span className="text-qag-gold">{(result.recyclingCoefficient * 100).toFixed(2)}%</span>
+            </div>
+            
             <div className="mt-4 pt-4 border-t border-slate-700">
-                <div className="text-xs text-slate-500 mb-1">STATUS</div>
-                {result.isAntiTailVisible ? (
-                    <div className="text-qag-gold font-bold bg-yellow-900/30 p-2 rounded border border-yellow-700">
-                        ⚠️ PIEZOELECTRIC DISCHARGE DETECTED (ANTI-TAIL)
+                <div className="text-xs text-slate-500 mb-1">COHERENCE STATUS</div>
+                {result.recyclingCoefficient > 0.5 ? (
+                    <div className="text-green-400 font-bold bg-green-900/20 p-2 rounded border border-green-700/50">
+                        ✅ THEATER IS COHERENT
                     </div>
                 ) : (
-                    <div className="text-slate-400 bg-slate-800 p-2 rounded">
-                        Vacuum Stress Nominal
+                    <div className="text-red-400 bg-red-900/20 p-2 rounded border border-red-700/50">
+                        Dissonant State Detected
                     </div>
                 )}
             </div>

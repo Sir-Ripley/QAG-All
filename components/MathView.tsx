@@ -31,6 +31,14 @@ const MathView: React.FC = () => {
                 <div className="font-bold">Yang-Mills Mass Gap</div>
                 <div className="text-[10px] mt-1 text-qag-accent">Status: RESOLVED</div>
             </button>
+            <button 
+                onClick={() => setActiveProof('SU3_EULER' as any)}
+                className={`p-4 rounded-lg border text-left transition-all ${activeProof === ('SU3_EULER' as any) ? 'bg-slate-700 border-qag-accent text-white' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}`}
+            >
+                <div className="text-xs font-mono opacity-50">Problem #4</div>
+                <div className="font-bold">SU(3) Euler Identity</div>
+                <div className="text-[10px] mt-1 text-qag-accent">Status: RESOLVED</div>
+            </button>
         </div>
 
         {/* Content Area */}
@@ -86,8 +94,35 @@ const MathView: React.FC = () => {
                         </code>
                     </div>
                     <p className="text-slate-300 leading-relaxed">
-                        The "Mass Gap" is simply the physical mass of the Affiniton ($\Psi$), the boson that mediates the vacuum condensate. Since $\Delta > 0$, the vacuum has structure.
+                        The "Mass Gap" is simply the physical mass of the Affiniton ($\Psi$), the boson that mediates the vacuum condensate. Since $\Delta$ &gt; 0, the vacuum has structure.
                     </p>
+                </div>
+            )}
+
+            {activeProof === ('SU3_EULER' as any) && (
+                <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-white mb-4">SU(3) Euler Identity</h2>
+                    <div className="p-4 bg-slate-900 rounded border border-slate-600">
+                        <code className="text-qag-accent">
+                            Ψ_min = [e^(-2/3), e^(1/3), -1]ᵀ
+                        </code>
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        The vacuum state contains Euler's number embedded in its fundamental geometry. 
+                        <br/><br/>
+                        <span className="text-qag-gold">expansion/contraction = e^(1/3) / e^(-2/3) = e^1 = e</span>
+                        <br/><br/>
+                        This connects the QAG vacuum directly to exponential growth, decay, and the base of natural logarithms.
+                    </p>
+                    <div className="bg-slate-800 p-4 rounded">
+                        <div className="text-xs text-slate-500">TOROIDAL TOPOLOGY</div>
+                        <div className="mt-2 space-y-1 text-xs">
+                            <div>Q_id = 1 → θ = 0°</div>
+                            <div>Q_id = 5 → θ = 144° (Golden Angle)</div>
+                            <div>Q_id = 7 → θ = 216° (0.70 MHz Resonance)</div>
+                            <div>Q_id = 10 → θ = 324°</div>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

@@ -90,16 +90,16 @@ const BiologyView: React.FC = () => {
                 </div>
 
                 <div>
-                    <label className="text-xs text-slate-400 uppercase">Input Frequency (Hz)</label>
+                    <label className="text-xs text-slate-400 uppercase">Input Frequency (MHz)</label>
                     <input 
-                        type="range" min="300" max="600" step="1" 
+                        type="range" min="1.0" max="50.0" step="0.01" 
                         value={state.frequency}
                         onChange={(e) => setState({...state, frequency: parseFloat(e.target.value)})}
                         className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-qag-success"
                     />
                     <div className="flex justify-between text-xs font-mono">
-                        <span className="text-slate-500">Current: {state.frequency}Hz</span>
-                        <span className="text-qag-gold">Target: 432Hz</span>
+                        <span className="text-slate-500">Current: {state.frequency} MHz</span>
+                        <span className="text-qag-gold">Hubble-Sync: 24.43 MHz</span>
                     </div>
                 </div>
 
@@ -111,6 +111,10 @@ const BiologyView: React.FC = () => {
                         onChange={(e) => setState({...state, coherenceIndex: parseFloat(e.target.value)})}
                         className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-qag-success"
                     />
+                </div>
+
+                <div className="p-3 bg-qag-dark rounded border border-slate-700 text-xs text-slate-400 italic">
+                    "The Healing Wake is the phase-conjugate reflection of the vacuum floor, induced by Zero-Point Resonance."
                 </div>
             </div>
         </div>
@@ -128,9 +132,11 @@ const BiologyView: React.FC = () => {
                 <span className="text-slate-300">Zeta Potential:</span>
                 <span className="text-qag-success">{result.zetaPotential.toFixed(1)} mV</span>
             </div>
-            <div className="flex justify-between">
-                <span className="text-slate-300">Est. Recovery:</span>
-                <span className="text-white">{result.recoveryTimeDays.toFixed(1)} Days</span>
+            <div className="flex justify-between items-center bg-slate-800 p-2 rounded">
+                <span className="text-slate-300">Healing Efficacy (η):</span>
+                <span className="text-xl font-bold text-qag-success">
+                    {(result.proteinFoldingState * 100).toFixed(1)}%
+                </span>
             </div>
         </div>
       </div>
