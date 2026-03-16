@@ -6,7 +6,6 @@ export const AFFINITY_SPEED = 343.0;
 export const CRITICAL_ACCELERATION_A0 = 1.20e-10; // m/s^2 (Derived from cH0/2e)
 export const AFFINITY_SUSCEPTIBILITY = 3.14e-19; // s^2/m
 export const UNIVERSAL_COHERENCE_C = 6.00e-7;
-export const RESONANCE_VOLTAGE = 1.107; // Volts
 export const PSYCHON_MASS_GAP = 9.05; // GeV
 export const PIXEL_OF_TIME = 1.03e-25; // seconds
 
