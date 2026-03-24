@@ -58,9 +58,9 @@ const BiologyView: React.FC = () => {
             else ctx.lineTo(x,y);
         }
         ctx.stroke();
-        requestAnimationFrame(anim);
+        id = requestAnimationFrame(anim);
     };
-    const id = requestAnimationFrame(anim);
+    let id = requestAnimationFrame(anim);
     return () => cancelAnimationFrame(id);
   }, [result]);
 
