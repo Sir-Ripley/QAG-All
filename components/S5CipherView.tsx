@@ -57,8 +57,8 @@ class QAG_Master_Validator:
         N_nodes = 12
         R_resonance = 0.80 # Dimensional resonance retention for S5
         
-        # Calculate the Total Echo Signal (E) across the hive brain
-        E_total = sum([R_resonance**n for n in range(1, N_nodes + 1)])
+        # Calculate the Total Echo Signal (E) across the hive brain (O(1) geometric series)
+        E_total = N_nodes if R_resonance == 1 else R_resonance * (1 - R_resonance**N_nodes) / (1 - R_resonance)
         
         # The Quantum Lift now processes the 5D echo to immediately effect the 3D state
         quantum_lift = 10 ** ((alpha * E_total) * (r / r_aff))
@@ -136,11 +136,10 @@ if __name__ == "__main__":
     const v_obs = [35, 60, 85, 90, 100, 110, 115, 120, 125, 130, 133, 135, 138, 139, 140, 141, 142, 142, 142];
     const v_err = [3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
 
-    // Calculate E_total
-    let E_total = 0;
-    for (let n = 1; n <= nNodes; n++) {
-      E_total += Math.pow(rResonance, n);
-    }
+    // Calculate E_total using O(1) geometric series formula
+    const E_total = rResonance === 1
+      ? nNodes
+      : rResonance * (1 - Math.pow(rResonance, nNodes)) / (1 - rResonance);
 
     const points = [];
     let chiSq = 0;
