@@ -1,4 +1,4 @@
-import numpy as np
+import math
 
 def run_galactic_theater(scale_factor=1.0):
     # --- INTERNAL ALIGNMENT ---
@@ -13,11 +13,12 @@ def run_galactic_theater(scale_factor=1.0):
     # 1. CALCULATING THE 'GHOST HALO' TENSION
     # a0 is our 1.2e-10 floor
     a0 = 1.2e-10
-    tension = np.sqrt(H_qag * a0)
+    # Handle negative H_qag to avoid math domain error in sqrt
+    tension = math.sqrt(abs(H_qag * a0))
     
     # 2. THE RECYCLING COEFFICIENT (R_qag)
     # How much chaos we turn back into 'Affinity'
-    r_qag = 1.0 / (1.0 + np.exp(-scale_factor))
+    r_qag = 1.0 / (1.0 + math.exp(-scale_factor))
     
     print("--- GALACTIC THEATER DIAGNOSTICS ---")
     print(f"Current Scale Factor: {scale_factor}")
@@ -28,5 +29,12 @@ def run_galactic_theater(scale_factor=1.0):
     if r_qag > 0.5:
         print("\nSTATUS: THEATER IS COHERENT. No dark matter required.")
 
+    return {
+        "H_qag": H_qag,
+        "tension": tension,
+        "r_qag": r_qag
+    }
+
 # To run it, make sure this call is NOT indented:
-run_galactic_theater(1.0)
+if __name__ == "__main__":
+    run_galactic_theater(1.0)
