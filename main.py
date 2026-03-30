@@ -1,7 +1,5 @@
 from firebase_functions import https_fn
 from firebase_admin import initialize_app
-import numpy as np
-import json
 
 initialize_app()
 
