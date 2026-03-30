@@ -6,8 +6,11 @@ let aiInitialized = false;
 
 const getAI = () => {
   if (!aiInitialized) {
-    if (process.env.API_KEY) {
-      ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // Access process.env safely to avoid ReferenceError in browser environments
+    // where Vite no longer provides the global 'process' object.
+    const apiKey = typeof process !== 'undefined' ? process.env?.API_KEY : undefined;
+    if (apiKey) {
+      ai = new GoogleGenAI({ apiKey });
     }
     aiInitialized = true;
   }
