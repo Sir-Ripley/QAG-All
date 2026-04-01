@@ -55,6 +55,23 @@ const ResonatorViz: React.FC<ResonatorVizProps> = ({ physics, inputAmplitude }) 
       ctx.stroke();
 
       // Draw 12 Channels
+      const channelStrokeStyle = `rgba(148, 163, 184, 0.3)`;
+      const waveCount = 3;
+      const packets: { r: number; style: string }[] = [];
+
+      if (inputAmplitude > 0) {
+          const speed = 1 + physics.resonanceQuality * 2;
+          for (let w = 0; w < waveCount; w++) {
+              const wavePos = (time * speed + w * (radius / waveCount)) % radius;
+              const currentR = radius - wavePos;
+              const opacity = (1 - (currentR / radius)) * inputAmplitude * 0.1;
+              packets.push({
+                  r: currentR,
+                  style: `rgba(56, 189, 248, ${opacity})`
+              });
+          }
+      }
+
       for (let i = 0; i < 12; i++) {
         const angle = (i * Math.PI * 2) / 12;
         ctx.save();
@@ -64,22 +81,17 @@ const ResonatorViz: React.FC<ResonatorVizProps> = ({ physics, inputAmplitude }) 
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(radius, 0);
-        ctx.strokeStyle = `rgba(148, 163, 184, 0.3)`;
+        ctx.strokeStyle = channelStrokeStyle;
         ctx.lineWidth = 1;
         ctx.stroke();
 
         // Wave packets traveling inward
         if (inputAmplitude > 0) {
-            const waveCount = 3;
-            for(let w=0; w<waveCount; w++) {
-                const speed = 1 + physics.resonanceQuality * 2;
-                const wavePos = (time * speed + w * (radius/waveCount)) % radius;
-                const currentR = radius - wavePos; 
-                const opacity = (1 - (currentR/radius)) * inputAmplitude * 0.1;
-                
+            for (let w = 0; w < waveCount; w++) {
+                const packet = packets[w];
                 ctx.beginPath();
-                ctx.arc(currentR, 0, 2, 0, Math.PI*2);
-                ctx.fillStyle = `rgba(56, 189, 248, ${opacity})`;
+                ctx.arc(packet.r, 0, 2, 0, Math.PI * 2);
+                ctx.fillStyle = packet.style;
                 ctx.fill();
             }
         }
