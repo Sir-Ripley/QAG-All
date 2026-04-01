@@ -45,6 +45,13 @@ export interface CosmologyResult {
   retrocausalVelocity: number; // v(r) with future pull
 }
 
+export interface CosmologyDataPoint {
+  au: number;
+  newton: number;
+  qag: number;
+  retrocausalVelocity: number;
+}
+
 export interface BiologyState {
   coherenceIndex: number; // C-value
   frequency: number; // 432Hz default

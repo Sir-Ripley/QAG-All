@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { CosmologyState, CosmologyResult } from '../types';
+import React, { useState, useMemo } from 'react';
+import { CosmologyState, CosmologyResult, CosmologyDataPoint } from '../types';
 import { calculateCosmology } from '../utils/physics';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
@@ -11,16 +11,11 @@ const CosmologyView: React.FC = () => {
     scaleFactor: 1.0
   });
   
-  const [result, setResult] = useState<CosmologyResult>(calculateCosmology(state));
-  const [dataPoints, setDataPoints] = useState<any[]>([]);
-
-  useEffect(() => {
-    setResult(calculateCosmology(state));
-  }, [state]);
+  const result = useMemo<CosmologyResult>(() => calculateCosmology(state), [state]);
 
   // Generate graph data based on current dielectric constant
-  useEffect(() => {
-    const points = [];
+  const dataPoints = useMemo<CosmologyDataPoint[]>(() => {
+    const points: CosmologyDataPoint[] = [];
     for(let d = 0.5; d <= 6.0; d+=0.5) {
         const res = calculateCosmology({ ...state, distanceAU: d });
         points.push({
@@ -30,7 +25,7 @@ const CosmologyView: React.FC = () => {
             retrocausalVelocity: res.retrocausalVelocity
         });
     }
-    setDataPoints(points);
+    return points;
   }, [state.dielectricConstant, state.scaleFactor]);
 
   return (
